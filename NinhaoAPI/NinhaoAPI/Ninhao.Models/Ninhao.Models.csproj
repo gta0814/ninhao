@@ -73,9 +73,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Car.cs" />
     <Compile Include="Migrations\202008032309430_createNinhao.cs" />
     <Compile Include="Migrations\202008032309430_createNinhao.designer.cs">
       <DependentUpon>202008032309430_createNinhao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008121739382_ninhao.cs" />
+    <Compile Include="Migrations\202008121739382_ninhao.designer.cs">
+      <DependentUpon>202008121739382_ninhao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008121741061_ninhao1.cs" />
+    <Compile Include="Migrations\202008121741061_ninhao1.designer.cs">
+      <DependentUpon>202008121741061_ninhao1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008121746105_ninhao2.cs" />
+    <Compile Include="Migrations\202008121746105_ninhao2.designer.cs">
+      <DependentUpon>202008121746105_ninhao2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NinhaoContext.cs" />
@@ -90,6 +103,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008032309430_createNinhao.resx">
       <DependentUpon>202008032309430_createNinhao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008121739382_ninhao.resx">
+      <DependentUpon>202008121739382_ninhao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008121741061_ninhao1.resx">
+      <DependentUpon>202008121741061_ninhao1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008121746105_ninhao2.resx">
+      <DependentUpon>202008121746105_ninhao2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

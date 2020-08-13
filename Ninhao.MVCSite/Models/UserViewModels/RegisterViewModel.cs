@@ -19,5 +19,6 @@ namespace Ninhao.MVCSite.Models.UserViewModels
         public string ConfirmPassword { get; set; }
         public string Contact { get; set; }
         public int Phone { get; set; }
+        public Guid Carid { get; set; }
     }
 }

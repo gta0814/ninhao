@@ -13,11 +13,8 @@ namespace Ninhao.IDAL
         Task EditAsync(T model, bool saved = true);
         Task RemoveAsync(Guid id, bool saved = true);
         Task RemoveAsync(T model, bool saved = true);
-        Task Save();
+        Task SaveAsync();
         Task<T> GetOneByIdAsync(Guid id);
-        IQueryable<T> GetAllAsync();
-        IQueryable<T> GetAllByPageAsync(int pageSize = 10, int pageIndex = 0);
-        IQueryable<T> GetAllInOrderAsync(bool asc = true);
-        IQueryable<T> GetAllByPageInOrderAsync(int pageSize = 10, int pageIndex = 0, bool asc = true);
+        IQueryable<T> GetAll();
     }
 }

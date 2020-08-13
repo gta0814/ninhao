@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Ninhao.DAL
 {
-    public class UserService : BaseService<Models.User>
+    public class CarService : BaseService<Models.Car>
     {
-        public UserService() : base(new NinhaoContext())
+        public CarService() : base(new NinhaoContext())
         {
         }
     }

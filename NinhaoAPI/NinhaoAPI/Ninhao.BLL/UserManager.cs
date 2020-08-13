@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace Ninhao.BLL
 {
-    public class UserManager : IUserManager
+    public class UserManager
     {
 
         public async Task ChangePassword(string email, string oldPwd, string newPwd)
         {
-            using (IDAL.IUserService userSvc = new DAL.UserService())
+            using (var userSvc = new DAL.UserService())
             {
-                if (await userSvc.GetAllAsync().AnyAsync(m => m.Email == email && m.Password == oldPwd))
+                if (await userSvc.GetAll().AnyAsync(m => m.Email == email && m.Password == oldPwd))
                 {
-                    var user = await userSvc.GetAllAsync().FirstAsync(m => m.Email == email);
+                    var user = await userSvc.GetAll().FirstAsync(m => m.Email == email);
                     user.Password = newPwd;
                     await userSvc.EditAsync(user);
                 }
@@ -29,9 +29,9 @@ namespace Ninhao.BLL
 
         public async Task ChangeUserInformation(string email, string imagePath, string contact, int phone)
         {
-            using (IDAL.IUserService userSvc = new DAL.UserService())
+            using (var userSvc = new DAL.UserService())
             {
-                var user = await userSvc.GetAllAsync().FirstAsync(m => m.Email == email);
+                var user = await userSvc.GetAll().FirstAsync(m => m.Email == email);
                 user.ImagePath = imagePath;
                 user.Contact = contact;
                 user.Phone = phone;
@@ -41,11 +41,11 @@ namespace Ninhao.BLL
 
         public async Task<UserInformationDTO> GetUserByEmail(string email)
         {
-            using (IDAL.IUserService userSvc = new DAL.UserService())
+            using (var userSvc = new DAL.UserService())
             {
-                if (await userSvc.GetAllAsync().AnyAsync(m => m.Email == email))
+                if (await userSvc.GetAll().AnyAsync(m => m.Email == email))
                 {
-                    var resault = await userSvc.GetAllAsync().Where(m => m.Email == email).Select(m => new DTO.UserInformationDTO()
+                    var resault = await userSvc.GetAll().Where(m => m.Email == email).Select(m => new DTO.UserInformationDTO()
                     {
                         Id = m.Id,
                         Email = m.Email,
@@ -62,24 +62,36 @@ namespace Ninhao.BLL
             }
         }
 
-        public async Task<bool> Login(string email, string password)
+        public static bool Login(string email, string password)
         {
-            using (IDAL.IUserService userSvc = new DAL.UserService())
+            using (var userSvc = new DAL.UserService())
             {
-                return await userSvc.GetAllAsync().AnyAsync(m => m.Email == email && m.Password == password);
+                var user = userSvc.GetAll(m => m.Email == email && m.Password == password).FirstOrDefaultAsync();
+                user.Wait();
+                if (user.Result == null)
+                {
+                    
+                    return false;
+                }
+                else
+                {
+                    
+                    return true;
+                }
             }
         }
 
-        public async Task Register(string email, string password, string contact, int phone)
+        public static async Task Register(string email, string password, string contact, int phone, Guid carid)
         {
-            using (IDAL.IUserService userSvc = new DAL.UserService())
+            using (var userSvc = new DAL.UserService())
             {
                 await userSvc.CreateAsync(new User()
                 {
                     Email = email,
                     Password = password,
                     Contact = contact,
-                    Phone = phone
+                    Phone = phone,
+                    CarId = carid
                 });
             }
         }

@@ -26,5 +26,8 @@ namespace Ninhao.Models
         public string Contact { get; set; }
         public int Phone { get; set; }
 
+        [ForeignKey(nameof(Car))]
+        public Guid CarId { get; set; }
+        public Car Car { get; set; }
     }
 }

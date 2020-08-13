@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ninhao.IDAL
 {
-    public interface ITripService : IBaseService<Models.Trip>
+    public interface ICarService : IBaseService<Models.Car>
     {
     }
 }

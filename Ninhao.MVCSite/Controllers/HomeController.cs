@@ -12,7 +12,7 @@ namespace Ninhao.MVCSite.Controllers
 {
     public class HomeController : Controller
     {
-        [NinhaoAuth]
+
         public ActionResult Index()
         {
             return View();
@@ -44,8 +44,7 @@ namespace Ninhao.MVCSite.Controllers
             {
                 return View(model);
             }
-            IBLL.IUserManager userManager = new UserManager();
-            await userManager.Register(model.Email, model.Password, model.Contact, model.Phone);
+            await UserManager.Register(model.Email, model.Password, model.Contact, model.Phone, model.Carid);
             return Content("Success");
         }
 
@@ -60,8 +59,7 @@ namespace Ninhao.MVCSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                IBLL.IUserManager userManager = new UserManager();
-                if (await userManager.Login(model.Email, model.LoginPwd))
+                if (UserManager.Login(model.Email, model.LoginPwd))
                 {
                     //session or cookie
                     if (model.RememberMe)
