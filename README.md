@@ -1,7 +1,6 @@
-# Ninhao
+# Ninhao - a Carpool web application
  Under construction...
  
- This is a Carpool web application.
  
 #### Current Supportting language
                 
