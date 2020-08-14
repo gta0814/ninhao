@@ -26,9 +26,12 @@ namespace Ninhao.BLL
                 });
             }
         }
-        public static async Task EditTrip()
+        public static async Task EditTrip(Trip trip)
         {
-
+            using(var tripSvc = new TripService())
+            {
+                await tripSvc.ChangeTripInfo(trip);
+            }
         }
     }
 }

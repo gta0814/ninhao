@@ -22,6 +22,9 @@ namespace Ninhao.DAL
             newTrip.StartFrom = trip.StartFrom;
             newTrip.Destination = trip.Destination;
             newTrip.TimeLeave = trip.TimeLeave;
+            newTrip.PassengerId = trip.PassengerId;
+            newTrip.PricePerSeat = trip.PricePerSeat;
+            newTrip.AvailiableSeat = trip.AvailiableSeat;
             await SaveAsync();
         }
     }
