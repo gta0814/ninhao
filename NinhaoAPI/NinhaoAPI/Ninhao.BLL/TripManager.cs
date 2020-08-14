@@ -10,6 +10,22 @@ namespace Ninhao.BLL
 {
     public class TripManager
     {
+        public static async Task InitailTestTrips()
+        {
+            using (var tripSvc = new TripService())
+            {
+                await tripSvc.CreateAsync(new Trip()
+                {
+                    StartFrom = "Edmonton",
+                    Destination = "Calgary",
+                    TimeLeave = DateTime.Now,
+                    AvailiableSeat = 4,
+                    PricePerSeat = 25,
+                    DriverId = Guid.Empty,
+                    PassengerId = Guid.Empty
+                });
+            }
+        }
         public static async Task CreateTrip(string startfrom, string destination, DateTime timeLeave, int seats, decimal price, Guid driverid, Guid passengerid)
         {
             using(var tripSvc = new TripService())

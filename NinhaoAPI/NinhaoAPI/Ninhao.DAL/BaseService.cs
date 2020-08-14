@@ -22,6 +22,14 @@ namespace Ninhao.DAL
             _db.Set<T>().Add(model);
             if (saved) await _db.SaveChangesAsync();
         }
+        public async Task CreateListAsync(List<T> models, bool saved = true)
+        {
+            _db.Set<T>().AddRange(models);
+            if (saved)
+            {
+                await _db.SaveChangesAsync();
+            }
+        }
 
         public async Task EditAsync(T model, bool saved = true)
         {
