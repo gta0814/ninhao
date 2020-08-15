@@ -20,12 +20,17 @@ namespace Ninhao.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NickName { get; set; }
+        public int? age { get; set; }
+        [Required]
+        [StringLength(maximumLength: 10), Column(TypeName = "varchar")]
+        public string Gender { get; set; }
 
         [StringLength(maximumLength: 300), Column(TypeName = "varchar")]
         public string ImagePath { get; set; }
         /// <summary>
         /// Media contact ex: 微信, facebook
         /// </summary>
+        [StringLength(maximumLength: 30), Column(TypeName = "varchar")]
         public string SocialMediaAccount { get; set; }
         public int? Phone { get; set; }
         public string Address { get; set; }

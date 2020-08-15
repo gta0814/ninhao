@@ -3,6 +3,7 @@ using Ninhao.DTO;
 using Ninhao.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,31 +26,57 @@ namespace Ninhao.BLL
                 });
             }
         }
-        public async Task<List<TripInformationDTO>> GetAllTrip()
+        /// <summary>
+        /// Get all trips information including drivers and cars
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<List<UserTripInformationDTO>> GetAllTrips()
         {
-            using (var tripSvc = new TripService())
+            using (var usertripSvc = new UsersTripsService())
             {
-                var trips = tripSvc.GetAll(m=>m.IsRemoved != true)
+                return await usertripSvc.GetAll(m => m.Trip.IsRemoved != true && m.IsDriver == true)
+                                        .Include(m => m.Trip)
+                                        .Include(m => m.User.Car)
+                                        .Select(m => new UserTripInformationDTO()
+                                        {
+                                            StartFrom = m.Trip.StartFrom,
+                                            Destination = m.Trip.Destination,
+                                            TimeLeave = m.Trip.TimeLeave,
+                                            AvailiableSeat = m.Trip.AvailiableSeat,
+                                            Price = m.Trip.PricePerSeat,
+                                            Note = m.Trip.Note,
+                                            Name = m.User.NickName == null ? m.User.NickName : m.User.FirstName,
+                                            Gender = m.User.Gender,
+                                            SocialAccount = m.User.SocialMediaAccount,
+                                            Phone = m.User.Phone,
+                                            CarMake = m.User.Car.Make,
+                                            CarColor = m.User.Car.Color,
+                                            CarPlate = m.User.Car.PlateNumber,
+                                            CarType = m.User.Car.Type
+                                        }).ToListAsync();
+
+
             }
         }
-        public static async Task CreateTrip(Guid driverId, string startfrom, string destination, DateTime timeLeave, int seats, decimal price)
+        public static async Task CreateTrip(Trip trip, Guid driverId)
         {
             using (var tripSvc = new TripService())
             {
                 var newTrip = new Trip()
                 {
-                    StartFrom = startfrom,
-                    Destination = destination,
-                    TimeLeave = timeLeave,
-                    AvailiableSeat = seats,
-                    PricePerSeat = price
+                    StartFrom = trip.StartFrom,
+                    Destination = trip.Destination,
+                    TimeLeave = trip.TimeLeave,
+                    AvailiableSeat = trip.AvailiableSeat,
+                    PricePerSeat = trip.PricePerSeat,
+                    Note = trip.Note
                 };
                 await tripSvc.CreateAsync(newTrip);
 
                 Guid tripId = newTrip.Id;
                 using (var usersTripsSvc = new UsersTripsService())
                 {
-                    await usersTripsSvc.CreateAsync(new UsersTrips() 
+                    await usersTripsSvc.CreateAsync(new UsersTrips()
                     {
                         UserId = driverId,
                         TripId = tripId,
@@ -69,7 +96,7 @@ namespace Ninhao.BLL
         {
             using (var usersTripsSvc = new UsersTripsService())
             {
-                await usersTripsSvc.CreateAsync(new UsersTrips() 
+                await usersTripsSvc.CreateAsync(new UsersTrips()
                 {
                     TripId = tripId,
                     UserId = passengerId

@@ -37,5 +37,6 @@ namespace Ninhao.Models
         /// Price per person
         /// </summary>
         public decimal? PricePerSeat { get; set; }
+        public string Note { get; set; }
     }
 }
