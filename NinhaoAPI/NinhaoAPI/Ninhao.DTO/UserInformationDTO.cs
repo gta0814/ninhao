@@ -16,6 +16,6 @@ namespace Ninhao.DTO
         public int FansCount { get; set; }
         public int FocusCount { get; set; }
         public string Contact { get; set; }
-        public int Phone { get; set; }
+        public int? Phone { get; set; }
     }
 }

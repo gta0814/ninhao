@@ -37,17 +37,5 @@ namespace Ninhao.Models
         /// Price per person
         /// </summary>
         public decimal? PricePerSeat { get; set; }
-        /// <summary>
-        /// Driver
-        /// </summary>
-        [ForeignKey(nameof(Driver))]
-        public Guid DriverId { get; set; }
-        public User Driver { get; set; }
-        /// <summary>
-        /// Passenger
-        /// </summary>
-        [ForeignKey(nameof(Passenger))]
-        public Guid PassengerId { get; set; }
-        public User Passenger { get; set; }
     }
 }

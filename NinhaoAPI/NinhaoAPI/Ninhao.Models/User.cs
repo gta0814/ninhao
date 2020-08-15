@@ -17,17 +17,22 @@ namespace Ninhao.Models
         [Required]
         [StringLength(maximumLength: 30), Column(TypeName = "varchar")]
         public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string NickName { get; set; }
 
         [StringLength(maximumLength: 300), Column(TypeName = "varchar")]
         public string ImagePath { get; set; }
         /// <summary>
         /// Media contact ex: 微信, facebook
         /// </summary>
-        public string Contact { get; set; }
-        public int Phone { get; set; }
+        public string SocialMediaAccount { get; set; }
+        public int? Phone { get; set; }
+        public string Address { get; set; }
 
         [ForeignKey(nameof(Car))]
         public Guid CarId { get; set; }
         public Car Car { get; set; }
+
     }
 }

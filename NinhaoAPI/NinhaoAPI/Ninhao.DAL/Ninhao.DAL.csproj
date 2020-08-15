@@ -56,8 +56,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TripService.cs" />
     <Compile Include="UserService.cs" />
+    <Compile Include="UsersTripsService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ninhao.DTO\Ninhao.DTO.csproj">
+      <Project>{b52129b5-9336-496d-beb0-f597c9ac2c2a}</Project>
+      <Name>Ninhao.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ninhao.IDAL\Ninhao.IDAL.csproj">
       <Project>{c1f24ded-0caf-4f27-aad9-814b8e5694e7}</Project>
       <Name>Ninhao.IDAL</Name>

@@ -33,7 +33,7 @@ namespace Ninhao.BLL
             {
                 var user = await userSvc.GetAll().FirstAsync(m => m.Email == email);
                 user.ImagePath = imagePath;
-                user.Contact = contact;
+                user.SocialMediaAccount = contact;
                 user.Phone = phone;
                 await userSvc.EditAsync(user);
             };
@@ -50,7 +50,7 @@ namespace Ninhao.BLL
                         Id = m.Id,
                         Email = m.Email,
                         ImagePath = m.ImagePath,
-                        Contact = m.Contact,
+                        Contact = m.SocialMediaAccount,
                         Phone = m.Phone
                     }).FirstAsync();
                     return resault;
@@ -89,7 +89,7 @@ namespace Ninhao.BLL
                 {
                     Email = email,
                     Password = password,
-                    Contact = contact,
+                    SocialMediaAccount = contact,
                     Phone = phone,
                     CarId = carid
                 });
