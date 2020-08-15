@@ -1,4 +1,4 @@
-# Ninhao - a Carpool web application
+# Ninhao - a Carpool web application (IDAL, IBLL are not in use)
  Under construction...
  
  
