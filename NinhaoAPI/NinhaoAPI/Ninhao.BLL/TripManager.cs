@@ -30,14 +30,14 @@ namespace Ninhao.BLL
         /// Get all trips information including drivers and cars
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<UserTripInformationDTO>> GetAllTrips()
+        public static async Task<List<TripInformationDTO>> GetAllTrips()
         {
             using (var usertripSvc = new UsersTripsService())
             {
                 return await usertripSvc.GetAll(m => m.Trip.IsRemoved != true && m.IsDriver == true)
                                         .Include(m => m.Trip)
                                         .Include(m => m.User.Car)
-                                        .Select(m => new UserTripInformationDTO()
+                                        .Select(m => new TripInformationDTO()
                                         {
                                             StartFrom = m.Trip.StartFrom,
                                             Destination = m.Trip.Destination,
@@ -92,16 +92,6 @@ namespace Ninhao.BLL
                 await tripSvc.EditAsync(trip);
             }
         }
-        public static async Task AddPassenger(Guid tripId, Guid passengerId)
-        {
-            using (var usersTripsSvc = new UsersTripsService())
-            {
-                await usersTripsSvc.CreateAsync(new UsersTrips()
-                {
-                    TripId = tripId,
-                    UserId = passengerId
-                });
-            }
-        }
+        
     }
 }

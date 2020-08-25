@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PassengerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TripManager.cs" />
     <Compile Include="UserManager.cs" />

@@ -38,12 +38,6 @@ namespace Ninhao.DAL
         //                 }).ToListAsync();
         //    return trips;
         //}
-        public async Task EditPassenger(Guid id, Guid passengerId)
-        {
-            var newTrip = new UsersTrips() { Id = id };
-            _db.Entry(newTrip).State = EntityState.Unchanged;
-            newTrip.UserId = passengerId;
-            await SaveAsync();
-        }
+        
     }
 }

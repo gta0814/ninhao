@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ninhao.DTO
 {
-    public class UserTripInformationDTO
+    public class TripInformationDTO
     {
         public Guid Id { get; set; }
         public string StartFrom { get; set; }

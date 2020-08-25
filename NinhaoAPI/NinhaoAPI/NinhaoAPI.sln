@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninhao.DAL", "Ninhao.DAL\Ni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninhao.MVCSite", "..\..\Ninhao.MVCSite\Ninhao.MVCSite.csproj", "{7387DD1D-1517-492B-81DD-E920B650F7D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninhao.WebAPI", "..\Ninao.WebAPI\Ninhao.WebAPI.csproj", "{7A45CD7C-A49E-4E7E-981E-020E11F6CAA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{7387DD1D-1517-492B-81DD-E920B650F7D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7387DD1D-1517-492B-81DD-E920B650F7D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7387DD1D-1517-492B-81DD-E920B650F7D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A45CD7C-A49E-4E7E-981E-020E11F6CAA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A45CD7C-A49E-4E7E-981E-020E11F6CAA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A45CD7C-A49E-4E7E-981E-020E11F6CAA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A45CD7C-A49E-4E7E-981E-020E11F6CAA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
