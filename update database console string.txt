@@ -1,3 +1,4 @@
 first time: enable-migrations
 1. add-migration
 2. update-database
+ec2-3-18-95-99.us-east-2.compute.amazonaws.com

@@ -1,4 +1,5 @@
-﻿using Ninhao.DTO;
+﻿using Ninhao.DAL;
+using Ninhao.DTO;
 using Ninhao.IBLL;
 using Ninhao.Models;
 using System;
@@ -41,17 +42,30 @@ namespace Ninhao.BLL
 
         public async Task<UserInformationDTO> GetUserByEmail(string email)
         {
-            using (var userSvc = new DAL.UserService())
+            using (var userSvc = new UserService())
             {
                 if (await userSvc.GetAll().AnyAsync(m => m.Email == email))
                 {
-                    var resault = await userSvc.GetAll().Where(m => m.Email == email).Select(m => new DTO.UserInformationDTO()
+                    var resault = await userSvc.GetAll()
+                        .Where(m => m.Email == email)
+                        .Include(m=>m.Car)
+                        .Select(m => new DTO.UserInformationDTO()
                     {
                         Id = m.Id,
                         Email = m.Email,
+                        FirstName = m.FirstName,
+                        LastName = m.LastName,
+                        NickName = m.NickName,
+                        Age = m.age,
+                        Gender = m.Gender,
                         ImagePath = m.ImagePath,
                         Contact = m.SocialMediaAccount,
-                        Phone = m.Phone
+                        Phone = m.Phone,
+                        Address = m.Address,
+                        Make = m.Car.Make,
+                        CarModel = m.Car.CarModel,
+                        CarType = m.Car.Type,
+                        Color = m.Car.Color
                     }).FirstAsync();
                     return resault;
                 }
@@ -70,28 +84,50 @@ namespace Ninhao.BLL
                 user.Wait();
                 if (user.Result == null)
                 {
-                    
                     return false;
                 }
                 else
                 {
-                    
                     return true;
                 }
             }
         }
 
-        public static async Task Register(string email, string password, string contact, int phone, Guid carid)
+        public static async Task Register(string email, string password, string firstname, string lastname, string nickname, int? age, string gender, string imagepath, string contact, long phone, string address, string plate, string make, string carModel, string type, string color)
         {
+            Guid carid = Guid.NewGuid();
+            if (make != null)
+            {
+                using (var carSvc = new CarService())
+                {
+                    await carSvc.CreateAsync(new Car()
+                    {
+                        Id = carid,
+                        Make = make,
+                        CarModel = carModel,
+                        Type = type,
+                        Color = color
+                    });
+                }
+            }
+
             using (var userSvc = new DAL.UserService())
             {
                 await userSvc.CreateAsync(new User()
                 {
                     Email = email,
                     Password = password,
+                    FirstName = firstname,
+                    LastName = lastname,
+                    NickName = nickname,
+                    age = age,
+                    Gender = gender,
+                    ImagePath = imagepath,
                     SocialMediaAccount = contact,
                     Phone = phone,
-                    CarId = carid
+                    Address = address,
+                    CarPlate = plate,
+                    CarId = make == null ? null : (Guid?)carid
                 });
             }
         }

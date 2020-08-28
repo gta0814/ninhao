@@ -12,10 +12,17 @@ namespace Ninhao.DTO
         public string Email { get; set; }
 
         public string ImagePath { get; set; }
-        public string SiteName { get; set; }
-        public int FansCount { get; set; }
-        public int FocusCount { get; set; }
         public string Contact { get; set; }
-        public int? Phone { get; set; }
+        public long Phone { get; set; }
+        public string FirstName { get; set; }
+        public string NickName { get; set; }
+        public int? Age { get; set; }
+        public string Gender { get; set; }
+        public string Address { get; set; }
+        public string LastName { get; set; }
+        public string Make { get; set; }
+        public string CarModel { get; set; }
+        public string CarType { get; set; }
+        public string Color { get; set; }
     }
 }

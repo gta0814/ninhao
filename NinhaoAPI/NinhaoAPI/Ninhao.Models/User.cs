@@ -32,11 +32,14 @@ namespace Ninhao.Models
         /// </summary>
         [StringLength(maximumLength: 30), Column(TypeName = "varchar")]
         public string SocialMediaAccount { get; set; }
-        public int? Phone { get; set; }
+        public long Phone { get; set; }
         public string Address { get; set; }
 
+        [StringLength(maximumLength: 10), Column(TypeName = "varchar")]
+        public string CarPlate { get; set; }
+
         [ForeignKey(nameof(Car))]
-        public Guid CarId { get; set; }
+        public Guid? CarId { get; set; }
         public Car Car { get; set; }
 
     }

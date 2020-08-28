@@ -1,5 +1,6 @@
 ﻿using JWT;
 using JWT.Algorithms;
+using JWT.Exceptions;
 using JWT.Serializers;
 using Newtonsoft.Json;
 using Ninao.WebAPI.Models;
@@ -34,7 +35,7 @@ namespace Ninao.WebAPI
     public class JwtTools
     {
         private static string Key { get; } = "hello world";
-        public static string Encoder(Dictionary<string, object> payload, string key = null)
+        public static string Encode(Dictionary<string, object> payload, string key = null)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -54,7 +55,7 @@ namespace Ninao.WebAPI
 
         }
 
-        public static Dictionary<string, object> Decode(string jwtStr, string key = null)
+        public static Dictionary<string, object> Decode(string token, string key = null)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -72,17 +73,26 @@ namespace Ninao.WebAPI
 
                 IJwtDecoder decoder = new JwtDecoder(serializer, urlEncoder);
 
-                var json = decoder.Decode(jwtStr, key, true);
+                var json = decoder.Decode(token, key, true);
 
                 var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
 
                 return result;
             }
-            catch (Exception)
+            catch (TokenExpiredException)
             {
 
                 throw;
             }
         }
+
+        //public static string ValidateLogined(HttpRequestHeaders headers)
+        //{
+        //    if (headers["token"] == null)
+        //    {
+        //        throw new Exception("Please Login");
+        //    }
+        //    return Decode(headers["token"], Key);
+        //}
     }
 }

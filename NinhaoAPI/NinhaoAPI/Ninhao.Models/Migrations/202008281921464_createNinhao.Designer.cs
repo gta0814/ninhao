@@ -7,13 +7,13 @@ namespace Ninhao.Models.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class ninhao1 : IMigrationMetadata
+    public sealed partial class createNinhao : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ninhao1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(createNinhao));
         
         string IMigrationMetadata.Id
         {
-            get { return "202008121741061_ninhao1"; }
+            get { return "202008281921464_createNinhao"; }
         }
         
         string IMigrationMetadata.Source

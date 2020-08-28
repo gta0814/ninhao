@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Ninao.WebAPI.Controllers
 {
@@ -18,12 +19,9 @@ namespace Ninao.WebAPI.Controllers
      */
 
     [MyAuth]
+    [EnableCors(origins:"*",headers:"*",methods:"*")]
     public class HomeController : ApiController
     {
-        [AllowAnonymous]
-        public IHttpActionResult Login()
-        {
 
-        }
     }
 }

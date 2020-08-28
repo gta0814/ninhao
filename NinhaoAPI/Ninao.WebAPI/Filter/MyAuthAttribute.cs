@@ -16,6 +16,8 @@ namespace Ninao.WebAPI.Filter
     {
         public bool AllowMutiple { get; }
 
+        public bool AllowMultiple => throw new NotImplementedException();
+
         public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
             if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>(true).Count > 0)

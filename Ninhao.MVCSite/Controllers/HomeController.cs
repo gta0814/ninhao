@@ -38,13 +38,13 @@ namespace Ninhao.MVCSite.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(Models.UserViewModels.RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            await UserManager.Register(model.Email, model.Password, model.Contact, model.Phone, model.Carid);
+            await UserManager.Register(model.Email, model.Password, model.FirstName, model.LastName, model.NickName, model.age, model.Gender, null, model.Contact, model.Phone, model.Address, model.CarPlate, model.Make, model.CarModel, model.Type, model.Color);
             return Content("Success");
         }
 

@@ -13,5 +13,12 @@ namespace Ninao.WebAPI.Filter
             this.loginName = loginName;
             this.userId = userId;
         }
+
+        public IIdentity Identity => throw new NotImplementedException();
+
+        public bool IsInRole(string role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

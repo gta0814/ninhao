@@ -18,7 +18,18 @@ namespace Ninhao.MVCSite.Models.UserViewModels
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
         public string Contact { get; set; }
-        public int Phone { get; set; }
-        public Guid Carid { get; set; }
+        public long Phone { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string NickName { get; set; }
+        public int? age { get; set; }
+        [Required]
+        public string Gender { get; set; }
+        public string Address { get; set; }
+        public string CarPlate { get; set; }
+        public string Make { get; set; }
+        public string Color { get; set; }
+        public string Type { get; set; }
+        public string CarModel { get; internal set; }
     }
 }
