@@ -15,7 +15,7 @@ namespace Ninhao.BLL
     public class UserManager
     {
 
-        public async Task ChangePassword(string email, string oldPwd, string newPwd)
+        public static async Task ChangePassword(string email, string oldPwd, string newPwd)
         {
             using (var userSvc = new DAL.UserService())
             {
@@ -28,25 +28,32 @@ namespace Ninhao.BLL
             }
         }
 
-        public async Task ChangeUserInformation(string email, string imagePath, string contact, int phone)
+        public static async Task ChangeUserInformation(UserInformationDTO userinfo)
         {
             using (var userSvc = new DAL.UserService())
             {
-                var user = await userSvc.GetAll().FirstAsync(m => m.Email == email);
-                user.ImagePath = imagePath;
-                user.SocialMediaAccount = contact;
-                user.Phone = phone;
+                var user = await userSvc.GetAll().FirstAsync(m => m.Email == userinfo.Email);
+                user.FirstName = userinfo.FirstName;
+                user.LastName = userinfo.LastName;
+                user.NickName = userinfo.NickName;
+                user.age = userinfo.Age;
+                user.Gender = userinfo.Gender;
+                user.ImagePath = userinfo.ImagePath;
+                user.SocialMediaAccount = userinfo.Contact;
+                user.Phone = userinfo.Phone;
+                user.Address = userinfo.Address;
+                user.CarPlate = userinfo.CarPlate;
                 await userSvc.EditAsync(user);
             };
         }
 
-        public async Task<UserInformationDTO> GetUserByEmail(string email)
+        public static UserInformationDTO GetUserByEmail(string email)
         {
             using (var userSvc = new UserService())
             {
-                if (await userSvc.GetAll().AnyAsync(m => m.Email == email))
+                if (userSvc.GetAll().Any(m => m.Email == email))
                 {
-                    var resault = await userSvc.GetAll()
+                    var resault = userSvc.GetAll()
                         .Where(m => m.Email == email)
                         .Include(m=>m.Car)
                         .Select(m => new DTO.UserInformationDTO()
@@ -62,11 +69,12 @@ namespace Ninhao.BLL
                         Contact = m.SocialMediaAccount,
                         Phone = m.Phone,
                         Address = m.Address,
+                        CarPlate = m.CarPlate,
                         Make = m.Car.Make,
                         CarModel = m.Car.CarModel,
                         CarType = m.Car.Type,
                         Color = m.Car.Color
-                    }).FirstAsync();
+                    }).First();
                     return resault;
                 }
                 else
@@ -76,7 +84,12 @@ namespace Ninhao.BLL
             }
         }
 
-        public static bool Login(string email, string password)
+        //TODO: Get driver car to store into Cookies in controller login method
+        //public static DriverCarDTO GetDriverCar(Guid id)
+        //{
+
+        //}
+        public static bool Login(string email, string password, out Guid userid)
         {
             using (var userSvc = new DAL.UserService())
             {
@@ -84,10 +97,12 @@ namespace Ninhao.BLL
                 user.Wait();
                 if (user.Result == null)
                 {
+                    userid = new Guid();
                     return false;
                 }
                 else
                 {
+                    userid = user.Result.Id;
                     return true;
                 }
             }
@@ -128,6 +143,43 @@ namespace Ninhao.BLL
                     Address = address,
                     CarPlate = plate,
                     CarId = make == null ? null : (Guid?)carid
+                });
+            }
+        }
+        public static async Task CreateAnonymousUser(UserInformationDTO user)
+        {
+            Guid carid = Guid.NewGuid();
+            if (user.Make != null)
+            {
+                using (var carSvc = new CarService())
+                {
+                    await carSvc.CreateAsync(new Car()
+                    {
+                        Id = carid,
+                        Make = user.Make,
+                        CarModel = user.CarModel,
+                        Type = user.CarType,
+                        Color = user.Color
+                    });
+                }
+            }
+            using (var userSvc = new DAL.UserService())
+            {
+                await userSvc.CreateAsync(new User()
+                {
+                    Email = "",
+                    Password = "",
+                    FirstName = "",
+                    LastName = "",
+                    NickName = user.NickName,
+                    age = null,
+                    Gender = user.Gender,
+                    ImagePath = "",
+                    SocialMediaAccount = user.Contact,
+                    Phone = user.Phone,
+                    Address = "",
+                    CarPlate = user.CarPlate,
+                    CarId = user.Make == null ? null : (Guid?)carid
                 });
             }
         }

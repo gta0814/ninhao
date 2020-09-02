@@ -8,7 +8,7 @@ namespace Ninhao.DTO
 {
     public class TripInformationDTO
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string StartFrom { get; set; }
         public string Destination { get; set; }
         public DateTime TimeLeave { get; set; }
@@ -18,7 +18,7 @@ namespace Ninhao.DTO
         public string Name { get; set; }
         public string Gender { get; set; }
         public string SocialAccount { get; set; }
-        public long Phone { get; set; }
+        public long? Phone { get; set; }
         public string CarMake { get; set; }
         public string CarColor { get; set; }
         public string CarPlate { get; set; }

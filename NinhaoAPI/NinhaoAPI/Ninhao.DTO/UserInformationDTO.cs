@@ -13,7 +13,7 @@ namespace Ninhao.DTO
 
         public string ImagePath { get; set; }
         public string Contact { get; set; }
-        public long Phone { get; set; }
+        public long? Phone { get; set; }
         public string FirstName { get; set; }
         public string NickName { get; set; }
         public int? Age { get; set; }
@@ -24,5 +24,6 @@ namespace Ninhao.DTO
         public string CarModel { get; set; }
         public string CarType { get; set; }
         public string Color { get; set; }
+        public string CarPlate { get; set; }
     }
 }

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Ninhao.DTO.TripInformationDTO>
 
 @{
-    ViewBag.Title = "TripList";
+    ViewBag.Title = "MyTrips";
 }
 
-<h2>TripList</h2>
+<h2>MyTrips</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateTrip")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -107,7 +107,9 @@
             @Html.DisplayFor(modelItem => item.CarModel)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

@@ -12,19 +12,18 @@ namespace Ninhao.MVCSite.Controllers
 {
     public class HomeController : Controller
     {
-
+        [NinhaoAuth]
         public ActionResult Index()
         {
             return View();
         }
-        [NinhaoAuth]
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
-        [NinhaoAuth]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -49,17 +48,19 @@ namespace Ninhao.MVCSite.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                if (UserManager.Login(model.Email, model.LoginPwd))
+                Guid userid = new Guid();
+                if (UserManager.Login(model.Email, model.LoginPwd, out userid))
                 {
                     //session or cookie
                     if (model.RememberMe)
@@ -69,11 +70,19 @@ namespace Ninhao.MVCSite.Controllers
                             Value = model.Email,
                             Expires = DateTime.Now.AddDays(7)
                         });
+                        Response.Cookies.Add(new HttpCookie("userid")
+                        {
+                            Value = userid.ToString(),
+                            Expires = DateTime.Now.AddDays(7)
+                        });
                     }
                     else
                     {
                         Session["loginName"] = model.Email;
+                        Session["userid"] = userid;
                     }
+                    var driver = UserManager.GetUserByEmail(model.Email);
+                    
                     return RedirectToAction(nameof(Index));
                 }
             }
