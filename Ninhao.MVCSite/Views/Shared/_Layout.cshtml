@@ -21,8 +21,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Trips", "TripList", "Trip")</li>
+                    <li>@Html.ActionLink("MyTrips", "MyTrips", "Trip")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("I'm driving", "CreateTrip", "Trip")</li>
                     <li class="pull-right">@Html.ActionLink("Register", "Register", "Home")</li>
                 </ul>
             </div>

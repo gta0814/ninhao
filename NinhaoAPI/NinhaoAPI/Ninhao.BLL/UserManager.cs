@@ -167,8 +167,9 @@ namespace Ninhao.BLL
             {
                 await userSvc.CreateAsync(new User()
                 {
-                    Email = "",
-                    Password = "",
+                    Id = user.Id,
+                    Email = "default@default.com",
+                    Password = "123456",
                     FirstName = "",
                     LastName = "",
                     NickName = user.NickName,

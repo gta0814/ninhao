@@ -68,13 +68,14 @@ namespace Ninhao.MVCSite.Controllers
                 return Content("您输入的信息没整好啊,回前一页吧...");
             }
 
-            Guid driverid = Guid.Parse(Session["userid"].ToString());
+            Guid driverid = Guid.NewGuid();
 
             var driver = new UserInformationDTO();
 
             //anonymous creating trip
             if (Session["loginName"] == null)
             {
+                driver.Id = driverid;
                 driver.NickName = model.Name;
                 driver.Gender = model.Gender;
                 driver.Contact = model.SocialAccount;
@@ -82,11 +83,18 @@ namespace Ninhao.MVCSite.Controllers
                 driver.CarPlate = model.CarPlate;
                 driver.Make = model.CarMake;
                 await UserManager.CreateAnonymousUser(driver);
+                await TripManager.CreateTrip(model.StartFrom, model.Destination, model.TimeLeave, model.AvailiableSeat, model.Price, model.Note, driverid);
+                return RedirectToAction("TripList");
+            }
+            else
+            {
+                driverid = Guid.Parse(Session["userid"].ToString());
+                await TripManager.CreateTrip(model.StartFrom, model.Destination, model.TimeLeave, model.AvailiableSeat, model.Price, model.Note, driverid);
+                return RedirectToAction("MyTrips");
             }
             
-            await TripManager.CreateTrip(model.StartFrom, model.Destination, model.TimeLeave, model.AvailiableSeat, model.Price, model.Note, driverid);
             
-            return RedirectToAction("MyTrips");
+            
         }
     }
 }
