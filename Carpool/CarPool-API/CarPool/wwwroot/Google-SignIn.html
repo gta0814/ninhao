@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/site.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <meta charset="utf-8" />
+    <title></title>
+    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="216794533506-ak4hhp6rpajtpu3b38804glng9hfpgd5.apps.googleusercontent.com">-->
+</head>
+<body>
+    <form name="form1" method="post" enctype="multipart/form-data" action="api/users/UploadImage">
+        <img src="~Images/57749.jpg" />
+        <div>
+            <label for="caption">Image Caption</label>
+            <input name="caption" type="text" />
+        </div>
+        <div>
+            <label for="image1">Image File</label>
+            <input name="file" type="file" />
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</body>
+</html>
+
+<script>
+
+    //$(document).on('click', '#btn', function (e) {
+    //    //your code goes here
+    //});
+
+    $("#btn1").click(function () {
+        console.log("hello world");
+        $.ajax({
+            url: "/externallogin",
+            headers: {
+                'Access-Control-Allow-Origin': 'https://localhost:44344',
+            
+                'Access-Control-Allow-Credentials': true
+            },
+            type: "get", //send it through get method
+            data: {
+                provider: "Google",
+                returnUrl: ""
+               
+            },
+            dataType: 'jsonp',
+            success: function (response) {
+                console.log(response)
+            },
+            error: function (xhr) {
+              //  console.log(xhr);
+            }
+        });
+    });
+
+    //function onSignIn(googleUser) {
+    //    var profile = googleUser.getBasicProfile();
+    //    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    //    console.log('Name: ' + profile.getName());
+    //    console.log('Image URL: ' + profile.getImageUrl());
+    //    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    //    console.log(googleUser);
+    //}
+</script>
